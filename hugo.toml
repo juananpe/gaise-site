@@ -1,3 +1,8 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Generative AI for Software Engineering (GAISE)'
+theme = "paperesque"
+
+[params]
+    author = "GAISE Course"
+    description = "Course materials and resources for Generative AI for Software Engineering"
