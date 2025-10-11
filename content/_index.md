@@ -15,9 +15,12 @@ This course explores the transformative impact of AI on software engineering, co
 - [Cómo usar herramientas IA para descompilar y arreglar un error en un binario Java](/posts/ai-reverse-engineering-java-bug/) - A real-world example of using Claude and Cursor to reverse engineer and fix a 10-year-old Java application bug
 - [Using Claude Code to modernize a 25-year-old kernel driver](https://dmitrybrant.com/2025/09/07/using-claude-code-to-modernize-a-25-year-old-kernel-driver) - How Claude Code resurrected a 25-year-old Linux kernel driver for legacy tape drives, enabling it to work on modern systems
 
+## Course Materials
+
+- [LangChain AI Agents Using Contextual Engineering](https://github.com/FareedKhan-dev/contextual-engineering-guide) - This comprehensive guide demonstrates how to implement the four core strategies of contextual engineering—Write, Select, Compress, and Isolate—using LangChain and LangGraph, covering everything from scratchpad memory and RAG-based knowledge retrieval to context summarization and multi-agent architectures with isolated context windows.
+
 ## Coming Soon
 
-- Course Materials
 - Assignments
 - Additional Case Studies
 - Hands-on Exercises
@@ -28,4 +31,4 @@ This site is built with [Hugo](https://gohugo.io) and the [Paperesque theme](htt
 
 ---
 
-*Ready to explore the future of software engineering? Start with our [featured case studies](#featured-case-study) showcasing AI-powered development in action!* 
+_Ready to explore the future of software engineering? Start with our [featured case studies](#featured-case-study) showcasing AI-powered development in action!_
