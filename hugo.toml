@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://gaise.ikasten.io'
 languageCode = 'en-us'
 title = 'Generative AI for Software Engineering (GAISE)'
 theme = "paperesque"

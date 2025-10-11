@@ -1,0 +1,70 @@
+name: Deploy GAISE site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-gaise
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Defaults; can be overridden with Repo Variables of same names
+  DEPLOY_HOST: ${{ vars.DEPLOY_HOST || 'gaise.ikasten.io' }}
+  DEPLOY_USER: ${{ vars.DEPLOY_USER || 'root' }}
+  DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/opt/gaise-site/public' }}
+  BASE_URL: ${{ vars.BASE_URL || 'https://gaise.ikasten.io' }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.148.2"
+          extended: true
+
+      - name: Build site
+        run: |
+          hugo --gc --minify --baseURL "${BASE_URL}"
+
+      - name: Write SSH key
+        shell: bash
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.GAISE_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
+
+      - name: Prepare remote directory
+        run: |
+          ssh -o StrictHostKeyChecking=yes ${DEPLOY_USER}@${DEPLOY_HOST} "mkdir -p ${DEPLOY_PATH}"
+
+      - name: Deploy via rsync
+        run: |
+          rsync -az --delete public/ ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/
+
+      - name: Verify deploy
+        continue-on-error: true
+        run: |
+          ssh -o StrictHostKeyChecking=yes ${DEPLOY_USER}@${DEPLOY_HOST} "ls -l ${DEPLOY_PATH}/index.html && date"
+
+      - name: Nginx warm check (optional)
+        if: ${{ false }}
+        run: |
+          # Enable to curl the site after deploy if firewall allows from runner
+          curl -I https://gaise.ikasten.io || true
+
+    # Required secret:
+    #   GAISE_SSH_PRIVATE_KEY: Private key with access to ${DEPLOY_USER}@${DEPLOY_HOST}
+    # Optional repo variables to override defaults:
+    #   DEPLOY_HOST, DEPLOY_USER, DEPLOY_PATH, BASE_URL
