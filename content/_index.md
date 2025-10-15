@@ -18,6 +18,7 @@ This course explores the transformative impact of AI on software engineering, co
 ## Course Materials
 
 - [LangChain AI Agents Using Contextual Engineering](https://github.com/FareedKhan-dev/contextual-engineering-guide) - This comprehensive guide demonstrates how to implement the four core strategies of contextual engineering—Write, Select, Compress, and Isolate—using LangChain and LangGraph, covering everything from scratchpad memory and RAG-based knowledge retrieval to context summarization and multi-agent architectures with isolated context windows.
+- [Issue management with GitHub Copilot](https://docs.google.com/document/d/1s3Xdp2UWtoMz2rInElXRcau2_UrGi4EJJDGVYLaRzM0/edit?usp=sharing) - A guide to automating issue creation and management in GitHub repositories using GitHub Copilot and the GitHub CLI.
 
 ## Coming Soon
 
